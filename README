@@ -1,0 +1,52 @@
+ 
+ NAME
+   
+   nonet - run a command after unsharing the network namespace
+   
+ SYNOPSIS
+   
+   nonet COMMAND [ARG]...
+   
+ DESCRIPTION
+   
+   Runs a given program as the calling user without the network attached.
+   
+   This program is intended to be run setuid as root.
+     * `chown root:root nonet`
+     * `chmod +s nonet`
+   
+ EXAMPLE
+   
+   $ ping -c 3 example.com
+   PING example.com (93.184.216.34) 56(84) bytes of data.
+   64 bytes from 93.184.216.34: icmp_seq=1 ttl=57 time=32.2 ms
+   64 bytes from 93.184.216.34: icmp_seq=2 ttl=57 time=35.3 ms
+   64 bytes from 93.184.216.34: icmp_seq=3 ttl=57 time=33.9 ms
+   
+   --- example.com ping statistics ---
+   3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+   rtt min/avg/max/mdev = 32.264/33.831/35.323/1.258 ms
+   
+   $ nonet ping -c 3 example.com
+   ping: unknown host example.com
+   
+ EXIT STATUS
+   
+   125 : invocation error
+     no command specified or run in context where it lacks the
+     permissions needed to unshare resources or change the 
+     effectuve user and group ids
+   
+   126 : cannot execute
+     exec failed to execute the given command
+   
+   127 : command not found
+     exec failed to locate the given command
+   
+ CAVEATS
+   
+   I don't think this should offer any particular risk to the well being
+   of the system running it, but I cannot guarantee such a thing either.
+   
+   As the LICENSE says, use it at your own risk.
+ 

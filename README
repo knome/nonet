@@ -5,7 +5,10 @@
    
  SYNOPSIS
    
-   nonet COMMAND [ARG]...
+   nonet [ --lo ] COMMAND [ARGS]...
+   
+   --lo : setup localhost on the new network namespace the program runs in.
+          done by running 'ip link set dev lo up' prior to dropping priviledges
    
  DESCRIPTION
    
